@@ -1,19 +1,21 @@
 .cards {
-    padding-top: 30px;
     width: 100%;
-    display: flex;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .firstDeck,.secondDeck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
     .firstDeck {
-        display: flex;
-        align-items: center;
-        width: 50%;
-        flex-direction: column;
+        padding-left: 10%;
     }
-    
+
     .secondDeck {
-        display: flex;
-        align-items: center;
-        width: 49%;
-        flex-direction: column;
+        padding-right: 10%;
     }
 }

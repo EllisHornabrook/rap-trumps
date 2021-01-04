@@ -4,14 +4,13 @@ import styles from "./DealCards.module.scss"
 import { firestore } from '../../firebase';
 
 const DealCards = () => {
-  const [rappers, setRappers]= useState([]);
+  const [rappers, setRappers] = useState([]);
   const [firstDeck, setFirstDeck] = useState([]);
   const [secondDeck, setSecondDeck] = useState([]);
 
   const getRappers = () => {
     firestore.collection("rappers").get().then((response) => {
-        const rappers = response.docs.map(d => d.data());
-        console.log(rappers);  
+        const rappers = response.docs.map(d => d.data());  
         setRappers(rappers);    
     }).catch((err) => console.error(err));
   };
@@ -26,7 +25,7 @@ const DealCards = () => {
         array[l] = array[i];
         array[i] = temp;      
     };
-    return array;  
+    return array;
   };
 
   const randomiseDecks = () => {
@@ -36,19 +35,39 @@ const DealCards = () => {
     setSecondDeck(randomisedDecks);
   };
 
-  const cardVsCardCheck = (option, firstDeck, secondDeck) => {
-    let firstTopCard = firstDeck[0];
-    let secondTopCard = secondDeck[0];
-    
-    if (firstTopCard`.${option}` > secondTopCard`.${option}`) {
-      let wonCard = secondDeck.shift()
-      firstDeck.push(wonCard)
+  const cardVsCardCheck = (option) => {
+    let updatedFirstDeck = [...firstDeck];
+    let updatedSecondDeck = [...secondDeck];
+    let firstTopCard = firstDeck[firstDeck.length-1][`${option}`];
+    let secondTopCard = secondDeck[secondDeck.length-1][`${option}`];
+
+    const firstCardValue = (firstTopCard === String) 
+      ? firstTopCard = parseInt(firstTopCard.replace(/[,"']/gm, ``).replace(/[.]/gm, `1`).replace(` Million`, ``|` Billion`, `1`))
+      : firstTopCard;
+    const secondCardValue = (secondTopCard === String) 
+    ? secondTopCard = parseInt(secondTopCard.replace(/[,"']/gm, ``).replace(/[.]/gm, `1`).replace(` Million`, ``|` Billion`, `1`))
+    : secondTopCard;
+
+    if (firstCardValue > secondCardValue) {
+      console.log("FIRST WINS");
+      console.log(firstTopCard);
+      const wonCard = updatedSecondDeck.pop()
+      updatedFirstDeck.unshift(wonCard)
+      const frontCard = updatedFirstDeck.pop()
+      updatedFirstDeck.unshift(frontCard)
     } else {
-      let wonCard = firstDeck.shift()
-      secondDeck.push(wonCard)
+      console.log("SECOND WINS");
+      console.log(secondTopCard);
+      const wonCard = updatedFirstDeck.pop()
+      updatedSecondDeck.unshift(wonCard)
+      const frontCard = updatedSecondDeck.pop()
+      updatedSecondDeck.unshift(frontCard)
     };
+    setFirstDeck(updatedFirstDeck);
+    setSecondDeck(updatedSecondDeck);
     // (firstTopCard`.${option}` === secondTopCard`.${option}`)
   };
+  console.log(firstDeck," first", secondDeck," second");
 
   return (
     <div>
@@ -57,7 +76,7 @@ const DealCards = () => {
       </div>
       <div className={styles.cards}>
         <div className={styles.firstDeck}>
-          {firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={() => cardVsCardCheck({option: null})} />)}
+          {firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
         </div>
         <div className={styles.secondDeck}>
           {secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} />)}

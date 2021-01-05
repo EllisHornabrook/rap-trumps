@@ -13,6 +13,6 @@ const App = () => {
       </span>
     </div>
   );
-}
+};
 
 export default App;

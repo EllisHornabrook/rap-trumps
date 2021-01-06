@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Card.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -16,11 +16,11 @@ const Card = (props) => {
             <div className={styles.options}>
                 <span onClick={() => handleClickedValue("height")}>
                     <p><FontAwesomeIcon className={styles.fontA} icon={"angle-right"} /> Height <FontAwesomeIcon className={styles.fontA} icon={"angle-left"} /></p>
-                    <p>{height}</p>
+                    <p>{height.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``|` Billion`, `1`)}</p>
                 </span>
                 <span onClick={() => handleClickedValue("streamNum")}>
                     <p><FontAwesomeIcon className={styles.fontA} icon={"angle-right"} /> Highest Stream <FontAwesomeIcon className={styles.fontA} icon={"angle-left"} /></p>
-                    <p>{streamNum} - "{stream}"</p>
+                    <p>{streamNum.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``|` Billion`, `1`)} - "{stream}"</p>
                 </span>
                 <span onClick={() => handleClickedValue("years")}>
                     <p><FontAwesomeIcon className={styles.fontA} icon={"angle-right"} /> Years In The Game <FontAwesomeIcon className={styles.fontA} icon={"angle-left"} /></p>
@@ -28,7 +28,7 @@ const Card = (props) => {
                 </span>
                 <span onClick={() => handleClickedValue("worth")}>
                     <p><FontAwesomeIcon className={styles.fontA} icon={"angle-right"} /> Net Worth <FontAwesomeIcon className={styles.fontA} icon={"angle-left"} /></p>
-                    <p>${worth}</p>
+                    <p>${worth.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``&&` Billion`, `11`)}</p>
                 </span>
                 <span onClick={() => handleClickedValue("ability")}>
                     <p><FontAwesomeIcon className={styles.fontA} icon={"angle-right"} /> Rap Ability <FontAwesomeIcon className={styles.fontA} icon={"angle-left"} /></p>

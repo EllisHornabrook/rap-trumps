@@ -35,44 +35,39 @@ const DealCards = () => {
     setSecondDeck(randomisedDecks);
   };
 
-  const cardVsCardCheck = (option) => {
-    let updatedFirstDeck = [...firstDeck];
-    let updatedSecondDeck = [...secondDeck];
-    let firstTopCard = firstDeck[firstDeck.length-1][`${option}`];
-    let secondTopCard = secondDeck[secondDeck.length-1][`${option}`];
+  const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
+    const firstCardUpdate = moveOne.pop()
+    moveTwo.unshift(firstCardUpdate)
+    const secondCardUpdate = moveThree.pop()
+    moveFour.unshift(secondCardUpdate)
+  }
 
-    const firstCardValue = (firstTopCard === String) 
-      ? parseInt(firstTopCard.replace(/[,"']/gm, ``).replace(/[0.]/gm, `1`).replace(` Million`, ``|` Billion`, `1`,10))
-      : firstTopCard;
-    const secondCardValue = (secondTopCard === String) 
-      ? parseInt(secondTopCard.replace(/[,"']/gm, ``).replace(/[0.]/gm, `1`).replace(` Million`, ``|` Billion`, `1`,10))
-      : secondTopCard;
+  const refactorCards = (cardValue) => {
+    if (cardValue === String) {
+      return (cardValue.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``).replace(` Billion`, `1`))
+    } else {
+      return cardValue
+    }
+  }
+
+  const cardVsCardCheck = (option) => {
+    const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`])
+    const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`])
 
     if (firstCardValue > secondCardValue) {
       console.log("FIRST WINS");
-      console.log(firstCardValue);
-      console.log(parseInt(firstTopCard.replace(/[,"']/gm, ``).replace(/[0.]/gm, `1`).replace(` Million`, ``|` Billion`, `1`,10)));
-      const wonCard = updatedSecondDeck.pop()
-      updatedFirstDeck.unshift(wonCard)
-      const frontCard = updatedFirstDeck.pop()
-      updatedFirstDeck.unshift(frontCard)
-    } else if (firstCardValue < secondCardValue) {
+      moveCards(secondDeck, firstDeck, firstDeck, firstDeck)
+    } else if (secondCardValue > firstCardValue) {
       console.log("SECOND WINS");
-      console.log(secondTopCard);
-      const wonCard = updatedFirstDeck.pop()
-      updatedSecondDeck.unshift(wonCard)
-      const frontCard = updatedSecondDeck.pop()
-      updatedSecondDeck.unshift(frontCard)
+      moveCards(firstDeck, secondDeck, secondDeck, secondDeck)
     } else {
-      const frontCardOne = updatedFirstDeck.pop()
-      updatedFirstDeck.unshift(frontCardOne)
-      const frontCardTwo = updatedSecondDeck.pop()
-      updatedSecondDeck.unshift(frontCardTwo)
-    }
-    setFirstDeck(updatedFirstDeck);
-    setSecondDeck(updatedSecondDeck);
+      console.log("DRAW");
+      moveCards(firstDeck, firstDeck, secondDeck, secondDeck)
+    };
+
+    setFirstDeck([...firstDeck]);
+    setSecondDeck([...secondDeck]);
   };
-  console.log(firstDeck," first", secondDeck," second");
 
   return (
     <div>
@@ -84,7 +79,7 @@ const DealCards = () => {
           {firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
         </div>
         <div className={styles.secondDeck}>
-          {secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} />)}
+          {secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
         </div>
       </div>
     </div>

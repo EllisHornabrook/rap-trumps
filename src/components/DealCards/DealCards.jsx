@@ -43,8 +43,8 @@ const DealCards = () => {
   }
 
   const refactorCards = (cardValue) => {
-    if (cardValue === String) {
-      return (cardValue.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``).replace(` Billion`, `1`))
+    if (typeof(cardValue) === "string") {
+      return parseInt(cardValue.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``).replace(` Billion`, `1`))
     } else {
       return cardValue
     }

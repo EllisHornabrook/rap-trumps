@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from "./App.module.scss"
+import styles from "./App.module.scss";
 import "./data/fa-library";
-import Header from "./components/Header/Header"
-import DealCards from "./components/DealCards/DealCards"
+import Header from "./components/Header/Header";
+import DealCards from "./components/DealCards/DealCards";
 
 const App = () => {
   return (

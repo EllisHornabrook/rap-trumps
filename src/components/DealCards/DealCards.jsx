@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Card from "../Card/Card"
-import styles from "./DealCards.module.scss"
+import Card from "../Card/Card";
+import styles from "./DealCards.module.scss";
 import { firestore } from '../../firebase';
 
 const DealCards = () => {
@@ -36,33 +36,43 @@ const DealCards = () => {
   };
 
   const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
-    const firstCardUpdate = moveOne.pop()
-    moveTwo.unshift(firstCardUpdate)
-    const secondCardUpdate = moveThree.pop()
-    moveFour.unshift(secondCardUpdate)
-  }
+    const firstCardUpdate = moveOne.pop();
+    moveTwo.unshift(firstCardUpdate);
+    const secondCardUpdate = moveThree.pop();
+    moveFour.unshift(secondCardUpdate);
+  };
 
   const refactorCards = (cardValue) => {
     if (typeof(cardValue) === "string") {
-      return parseInt(cardValue.replace(/[,"']/gm, ``).replace(`.`, `1`).replaceAll(`0`, `1`).replace(` Million`, ``).replace(` Billion`, `1`))
+      return parseFloat(
+        cardValue
+          .replace(`.`, `1`)
+          .replace(`10"`, `9.1`)
+          .replace(`11"`, `9.2`)
+          .replace(` Million`, ``)
+          .replace(` Billion`, `1`)
+          .replace(/[,"']/gm, ``)
+        );
     } else {
-      return cardValue
-    }
-  }
+      return cardValue;
+    };
+  };
 
   const cardVsCardCheck = (option) => {
-    const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`])
-    const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`])
+    const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
+    const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
 
     if (firstCardValue > secondCardValue) {
       console.log("FIRST WINS");
-      moveCards(secondDeck, firstDeck, firstDeck, firstDeck)
+      console.log(firstCardValue);
+      moveCards(secondDeck, firstDeck, firstDeck, firstDeck);
     } else if (secondCardValue > firstCardValue) {
       console.log("SECOND WINS");
-      moveCards(firstDeck, secondDeck, secondDeck, secondDeck)
+      console.log(secondCardValue);
+      moveCards(firstDeck, secondDeck, secondDeck, secondDeck);
     } else {
       console.log("DRAW");
-      moveCards(firstDeck, firstDeck, secondDeck, secondDeck)
+      moveCards(firstDeck, firstDeck, secondDeck, secondDeck);
     };
 
     setFirstDeck([...firstDeck]);

@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./Card.module.scss"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styles from "./Card.module.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Card = (props) => {
     const { image, name, height, streamNum, stream, years, date, worth, ability } = props.rapper;

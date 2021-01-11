@@ -1,6 +1,36 @@
-.results {
+.player, .computer, .draw {
     position: absolute;
     height: 100vh;
-    width: 100%;
+    display: flex;
+    width: 9%;
     z-index: -1;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        text-align: center;
+        font-size: 35px;
+    }
+}
+
+.player, .computer {
+    background-color: green;
+}
+
+.player {
+    left: 0;
+}
+
+.computer {
+    right: 0;
+}
+
+.draw {
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }

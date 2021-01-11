@@ -1,6 +1,6 @@
 .cards {
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
 
@@ -12,10 +12,10 @@
     }
 
     .firstDeck {
-        padding-left: 10%;
+        padding-left: 15%;
     }
 
     .secondDeck {
-        padding-right: 10%;
+        padding-right: 15%;
     }
 }

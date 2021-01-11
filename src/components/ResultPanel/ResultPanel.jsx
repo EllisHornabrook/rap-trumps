@@ -6,20 +6,20 @@ const ResultPanel = (props) => {
     if (props.determinedResult === "Player") {
       return (
         <div className={styles.player}>
-          <h2>WINNER</h2>
+          <h2>PLAYER WINS</h2>
         </div>
       )
     } else if (props.determinedResult === "Computer") {
       return (
         <div className={styles.computer}>
-          <h2>WINNER</h2>
+          <h2>COMPUTER WINS</h2>
           <h2>DECIDING . . .</h2>
         </div>
       )
     } else if (props.determinedResult === "Draw") {
       return (
         <div className={styles.draw}>
-          <h2>DRAW</h2>
+          <h2>IT'S A DRAW</h2>
         </div>
       )
     } else {
@@ -28,9 +28,9 @@ const ResultPanel = (props) => {
   };
 
   return (
-    <div className={styles.results}>
+    <>
       {checkResult()}
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from "../Card/Card";
 import styles from "./Decks.module.scss";
+import ResultPanel from "../ResultPanel"
 
 const Decks = (props) => {
+  const [determinedResult, setDeterminedResult] = useState("");
   const firstDeck = props.firstDeck;
   const secondDeck = props.secondDeck;
 
@@ -35,10 +37,13 @@ const Decks = (props) => {
 
     if (firstCardValue > secondCardValue) {
       moveCards(secondDeck, firstDeck, firstDeck, firstDeck);
+      setDeterminedResult("Player")
     } else if (secondCardValue > firstCardValue) {
       moveCards(firstDeck, secondDeck, secondDeck, secondDeck);
+      setDeterminedResult("Computer")
     } else {
       moveCards(firstDeck, firstDeck, secondDeck, secondDeck);
+      setDeterminedResult("Draw")
     };
 
     props.setFirstDeck([...firstDeck]);
@@ -53,6 +58,7 @@ const Decks = (props) => {
       <div className={styles.secondDeck}>
         {props.secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
       </div>
+      <ResultPanel determinedResult={determinedResult} />
     </div>
   );
 };

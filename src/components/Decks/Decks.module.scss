@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 
-    .firstDeck,.secondDeck {
+    .firstDeck, .secondDeck {
         display: flex;
         flex-direction: column;
         align-items: center;

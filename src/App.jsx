@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from "./App.module.scss";
 import { firestore } from './firebase';
 import "./data/fa-library";
-import Header from "./components/Header/Header";
-import Decks from "./components/Decks/Decks";
+import Header from "./components/Header";
+import Decks from "./components/Decks";
 
 const App = () => {
   const [rappers, setRappers] = useState([]);
@@ -49,6 +49,7 @@ const App = () => {
     } else {
       return (
         <div>
+          <Header />
           <button onClick={() => setDecks()}>Play</button>
         </div>
       );
@@ -56,8 +57,7 @@ const App = () => {
   };
 
   return (
-    <div className={styles.App}>
-      <Header />
+    <div className={styles.app}>
       {startGame()}
     </div>
   );

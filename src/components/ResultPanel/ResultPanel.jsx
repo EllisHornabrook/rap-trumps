@@ -6,22 +6,21 @@ const ResultPanel = (props) => {
     if (props.determinedResult === "Player") {
       return (
         <div className={styles.player}>
-          <h2>PLAYER WINS</h2>
+          <h2>YOU WIN</h2>
         </div>
-      )
+      );
     } else if (props.determinedResult === "Computer") {
       return (
         <div className={styles.computer}>
-          <h2>COMPUTER WINS</h2>
-          <h2>DECIDING . . .</h2>
+          <h2>YOU LOSE</h2>
         </div>
-      )
+      );
     } else if (props.determinedResult === "Draw") {
       return (
         <div className={styles.draw}>
-          <h2>IT'S A DRAW</h2>
+          <h2>ITS A DRAW</h2>
         </div>
-      )
+      );
     } else {
       return null
     };

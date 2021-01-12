@@ -37,13 +37,13 @@ const Decks = (props) => {
 
     if (firstCardValue > secondCardValue) {
       moveCards(secondDeck, firstDeck, firstDeck, firstDeck);
-      setDeterminedResult("Player")
+      setDeterminedResult("Player");
     } else if (secondCardValue > firstCardValue) {
       moveCards(firstDeck, secondDeck, secondDeck, secondDeck);
-      setDeterminedResult("Computer")
+      setDeterminedResult("Computer");
     } else {
       moveCards(firstDeck, firstDeck, secondDeck, secondDeck);
-      setDeterminedResult("Draw")
+      setDeterminedResult("Draw");
     };
 
     props.setFirstDeck([...firstDeck]);
@@ -52,6 +52,10 @@ const Decks = (props) => {
 
   return (
     <div className={styles.cards}>
+      <div className={styles.cardCount}>
+        <h2>{props.firstDeck.length}</h2>
+        <h2>{props.secondDeck.length}</h2>
+      </div>
       <div className={styles.firstDeck}>
         {props.firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Card from "../Card/Card";
 import styles from "./Decks.module.scss";
-import ResultPanel from "../ResultPanel"
+import ResultPanel from "../ResultPanel";
+import CardBack from "../CardBack";
 
 const Decks = (props) => {
   const [determinedResult, setDeterminedResult] = useState("");
@@ -60,6 +61,7 @@ const Decks = (props) => {
         {props.firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
       </div>
       <div className={styles.secondDeck}>
+        <CardBack />
         {props.secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
       </div>
       <ResultPanel determinedResult={determinedResult} />

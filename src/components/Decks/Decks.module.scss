@@ -3,6 +3,7 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding-top: 15px;
 
     .cardCount {
         position: absolute;
@@ -18,8 +19,7 @@
             height: 60px;
             width: 60px;
             text-align: center;
-            padding-bottom: 5px;
-            margin-top: 15px;
+            margin-top: 10px;
             border: 5px solid black;
             border-radius: 50%;
             font-size: 35px;

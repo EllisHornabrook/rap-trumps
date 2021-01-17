@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from "./App.module.scss";
 import { firestore } from './firebase';
 import "./data/fa-library";
-import Header from "./components/Header";
+import Title from "./components/Title";
 import Decks from "./components/Decks";
 
 const App = () => {
@@ -42,16 +42,16 @@ const App = () => {
   const startGame = () => {
     if (gameBegin === true) {
       return (
-        <span>
+        <>
           <Decks firstDeck={firstDeck} secondDeck={secondDeck} setFirstDeck={setFirstDeck} setSecondDeck={setSecondDeck} />
-        </span>
+        </>
       );
     } else {
       return (
-        <div>
-          <Header />
-          <button onClick={() => setDecks()}>Play</button>
-        </div>
+        <>
+          <Title />
+          <button className={styles.playBtn} onClick={() => setDecks()}>Play</button>
+        </>
       );
     };
   };

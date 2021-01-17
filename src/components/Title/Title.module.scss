@@ -1,0 +1,38 @@
+.titleBackground {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: #A0522D;
+    
+    .titleContainer {
+        width: 100%;
+        height: 85vh;
+        border-top: #BC8F8F solid 10px;
+        border-bottom: #BC8F8F solid 10px;
+        background-color: #DEB887;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .titleEffect {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: -70px;
+            padding: 10% 20% 11%;
+            background: radial-gradient(#FFEBCD 30%, #DEB887 70%);
+
+            h1 {
+                display: inline;
+                font-size: 120px;
+                text-align: center;
+                text-decoration: underline;
+                text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.76);
+                color: chocolate;
+                padding: 0 30px;
+            }
+        }
+    }
+}

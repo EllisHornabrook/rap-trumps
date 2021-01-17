@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+}
+.app .playBtn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 0;
+  margin-bottom: 10%;
+  height: 60px;
+  width: 150px;
+  font-size: 30px;
+}

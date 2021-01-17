@@ -7,4 +7,16 @@
 .app {
     height: 100%;
     width: 100%;
+
+    .playBtn {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        bottom: 0;
+        margin-bottom: 10%;
+        height: 60px;
+        width: 150px;
+        font-size: 30px;
+    }
 }

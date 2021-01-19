@@ -2,71 +2,95 @@ import React, { useState } from 'react';
 import Card from "../Card/Card";
 import styles from "./Decks.module.scss";
 import ResultPanel from "../ResultPanel";
-import CardBack from "../CardBack";
 
 const Decks = (props) => {
-  const [determinedResult, setDeterminedResult] = useState("");
-  const firstDeck = props.firstDeck;
-  const secondDeck = props.secondDeck;
+    const { firstDeck, setFirstDeck, secondDeck, setSecondDeck } = props;
+    const [determinedResult, setDeterminedResult] = useState("");
+    const [hideDeck, setHideDeck] = useState(true);
 
-  const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
-    const firstCardUpdate = moveOne.pop();
-    moveTwo.unshift(firstCardUpdate);
-    const secondCardUpdate = moveThree.pop();
-    moveFour.unshift(secondCardUpdate);
-  };
-
-  const refactorCards = (cardValue) => {
-    if (typeof(cardValue) === "string") {
-      return parseFloat(
-        cardValue
-          .replace(`.`, `1`)
-          .replace(`10"`, `9.1`)
-          .replace(`11"`, `9.2`)
-          .replace(` Million`, ``)
-          .replace(` Billion`, `1`)
-          .replace(/[,"']/gm, ``)
-        );
-    } else {
-      return cardValue;
-    };
-  };
-
-  const cardVsCardCheck = (option) => {
-    const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
-    const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
-
-    if (firstCardValue > secondCardValue) {
-      moveCards(secondDeck, firstDeck, firstDeck, firstDeck);
-      setDeterminedResult("Player");
-    } else if (secondCardValue > firstCardValue) {
-      moveCards(firstDeck, secondDeck, secondDeck, secondDeck);
-      setDeterminedResult("Computer");
-    } else {
-      moveCards(firstDeck, firstDeck, secondDeck, secondDeck);
-      setDeterminedResult("Draw");
+    const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
+        const firstCardUpdate = moveOne.pop();
+        moveTwo.unshift(firstCardUpdate);
+        const secondCardUpdate = moveThree.pop();
+        moveFour.unshift(secondCardUpdate);
     };
 
-    props.setFirstDeck([...firstDeck]);
-    props.setSecondDeck([...secondDeck]);
-  };
+    const refactorCards = (cardValue) => {
+        if (typeof(cardValue) === "string") {
+            return parseFloat(
+                cardValue
+                    .replace(`.`, `1`)
+                    .replace(`10"`, `9.1`)
+                    .replace(`11"`, `9.2`)
+                    .replace(` Million`, ``)
+                    .replace(` Billion`, `1`)
+                    .replace(/[,"']/gm, ``)
+            );
+        } else {
+            return cardValue;
+        };
+    };
 
-  return (
-    <div className={styles.cards}>
-      <div className={styles.cardCount}>
-        <h2>{props.firstDeck.length}</h2>
-        <h2>{props.secondDeck.length}</h2>
-      </div>
-      <div className={styles.firstDeck}>
-        {props.firstDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
-      </div>
-      <div className={styles.secondDeck}>
-        <CardBack />
-        {props.secondDeck.map((rapper, index) => <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} />)}
-      </div>
-      <ResultPanel determinedResult={determinedResult} />
-    </div>
-  );
+    const cardVsCardCheck = (option) => {
+        const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
+        const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
+
+        if (firstCardValue > secondCardValue) {
+            changeCards(secondDeck, firstDeck, firstDeck, firstDeck);
+            setDeterminedResult("Player");
+            setHideDeck(false);
+        } else if (secondCardValue > firstCardValue) {
+            changeCards(firstDeck, secondDeck, secondDeck, secondDeck);
+            setDeterminedResult("Computer");
+            setHideDeck(false);
+        } else {
+            changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
+            setDeterminedResult("Draw");
+            setHideDeck(false);
+        };
+    };
+
+    const changeCards = (moveOne, moveTwo, moveThree, moveFour) => {
+        setTimeout(() => {
+            setHideDeck(true);
+            setDeterminedResult("");
+        }, 3000);
+        setTimeout(() => {
+            moveCards(moveOne, moveTwo, moveThree, moveFour)
+            setFirstDeck([...firstDeck]);
+            setSecondDeck([...secondDeck]);
+        }, 3100);
+    };
+
+    return (
+        <div className={styles.cards}>
+            <div className={styles.cardCount}>
+                <h2>{firstDeck.length}</h2>
+                <h2>{secondDeck.length}</h2>
+            </div>
+            <div className={styles.firstDeck}>
+                {firstDeck.map((rapper, index) =>
+                    <Card 
+                        key={index}
+                        rapper={rapper} 
+                        cardVsCardCheck={cardVsCardCheck}
+                    />
+                )}
+            </div>
+            <div className={styles.secondDeck}>
+                {secondDeck.map((rapper, index) =>
+                    <Card
+                        key={index}
+                        rapper={rapper}
+                        cardVsCardCheck={cardVsCardCheck}
+                        hideDeck={hideDeck}
+                        setHideDeck={setHideDeck}
+                    />
+                )}
+            </div>
+            <ResultPanel determinedResult={determinedResult} />
+        </div>
+    );
 };
 
 export default Decks;

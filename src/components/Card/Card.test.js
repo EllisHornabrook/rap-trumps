@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import CardBack from "./CardBack";
+import Card from "./Card";
 
-describe("CardBack tests", () => {
+describe("Card tests", () => {
     it("should render", () => {
-        expect(render(<CardBack />)).toBeTruthy();
+        expect(render(<Card />)).toBeTruthy();
     });
 });

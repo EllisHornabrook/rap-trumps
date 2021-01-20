@@ -6,8 +6,8 @@ const CardBack = () => {
         <div className={styles.cardBack}>
             <div className={styles.cardBorder}>
                 <div>
-                    <h2>Rap</h2>
-                    <h2>Trumps</h2>
+                    <h2>RAP</h2>
+                    <h2>TRUMPS</h2>
                 </div>
             </div>
         </div>

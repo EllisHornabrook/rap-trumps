@@ -65,7 +65,7 @@ const Decks = (props) => {
     };
 
     return (
-        <div className={styles.cards}>
+        <div className={styles.decks}>
             <div className={styles.cardCount}>
                 <h2>{firstDeck.length}</h2>
                 <h2>{secondDeck.length}</h2>

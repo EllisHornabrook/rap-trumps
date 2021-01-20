@@ -1,12 +1,9 @@
 .card {
     height: 725px;
     width: 485px;
-    border: 2px solid black;
     border-radius: 25px;
-    padding: 25px;
     background-color: #ffecc0;
     text-align: center;
-    box-shadow: 0px 4px rgba(49, 49, 49, 0.507);
     position: absolute;
     transition: transform 0.3s;
     transform-style: preserve-3d;
@@ -18,10 +15,16 @@
 
     .front {
         @extend .card;
+        padding: 25px;
+        border: 2px solid black;
+        box-shadow: 3px 3px 5px rgba(49, 49, 49, 0.5);
     }
 
     .back {
         @extend .card;
         transform: rotateY(180deg);
+        padding: 25px;
+        border: 2px solid black;
+        box-shadow: 3px 3px 5px rgba(49, 49, 49, 0.4);
     }
 }

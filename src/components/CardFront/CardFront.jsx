@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardFront = (props) => {
     const { image, name, height, streamNum, stream, years, date, worth, ability } = props.rapper;
+    const { cardVsCardCheck, runBlocker } = props;
 
     return (
         <div className={styles.cardFront}>
             <img src={image} alt={name} />
             <h2>{name}</h2>
             <div className={styles.options}>
-                <span onClick={() => props.cardVsCardCheck("height")}>
+                <span onClick={() => {cardVsCardCheck("height"); runBlocker();}}>
                     <p>
                         <FontAwesomeIcon className={styles.fontA} icon={"angle-right"} />
                         {" "}Height{" "}
@@ -18,7 +19,7 @@ const CardFront = (props) => {
                     </p>
                     <p>{height}</p>
                 </span>
-                <span onClick={() => props.cardVsCardCheck("streamNum")}>
+                <span onClick={() => {cardVsCardCheck("streamNum"); runBlocker();}}>
                     <p>
                         <FontAwesomeIcon className={styles.fontA} icon={"angle-right"} />
                         {" "}Highest Stream{" "}
@@ -26,7 +27,7 @@ const CardFront = (props) => {
                     </p>
                     <p>{streamNum} - "{stream}"</p>
                 </span>
-                <span onClick={() => props.cardVsCardCheck("years")}>
+                <span onClick={() => {cardVsCardCheck("years"); runBlocker();}}>
                     <p>
                         <FontAwesomeIcon className={styles.fontA} icon={"angle-right"} />
                         {" "}Years In The Game{" "}
@@ -34,7 +35,7 @@ const CardFront = (props) => {
                     </p>
                     <p>{years} - ({date})</p>
                 </span>
-                <span onClick={() => props.cardVsCardCheck("worth")}>
+                <span onClick={() => {cardVsCardCheck("worth"); runBlocker();}}>
                     <p>
                         <FontAwesomeIcon className={styles.fontA} icon={"angle-right"} />
                         {" "}Net Worth{" "}
@@ -42,7 +43,7 @@ const CardFront = (props) => {
                     </p>
                     <p>${worth}</p>
                 </span>
-                <span onClick={() => props.cardVsCardCheck("ability")}>
+                <span onClick={() => {cardVsCardCheck("ability"); runBlocker();}}>
                     <p>
                         <FontAwesomeIcon className={styles.fontA} icon={"angle-right"} />
                         {" "}Rap Ability{" "}

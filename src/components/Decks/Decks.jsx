@@ -7,16 +7,11 @@ const Decks = (props) => {
     const { firstDeck, setFirstDeck, secondDeck, setSecondDeck } = props;
     const [determinedResult, setDeterminedResult] = useState("");
     const [hideDeck, setHideDeck] = useState(true);
-
-    const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
-        const firstCardUpdate = moveOne.pop();
-        moveTwo.unshift(firstCardUpdate);
-        const secondCardUpdate = moveThree.pop();
-        moveFour.unshift(secondCardUpdate);
-    };
+    const [blocked, setBlocked] = useState(false);
+    const clickBlocker = blocked ? styles.blockPlayer : "";
 
     const refactorCards = (cardValue) => {
-        if (typeof(cardValue) === "string") {
+        if (typeof cardValue === "string") {
             return parseFloat(
                 cardValue
                     .replace(`.`, `1`)
@@ -50,6 +45,13 @@ const Decks = (props) => {
         };
     };
 
+    const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
+        const firstCardUpdate = moveOne.pop();
+        moveTwo.unshift(firstCardUpdate);
+        const secondCardUpdate = moveThree.pop();
+        moveFour.unshift(secondCardUpdate);
+    };
+
     const changeCards = (moveOne, moveTwo, moveThree, moveFour) => {
         setTimeout(() => {
             setHideDeck(true);
@@ -68,25 +70,25 @@ const Decks = (props) => {
                 <h2>{firstDeck.length}</h2>
                 <h2>{secondDeck.length}</h2>
             </div>
-            <div className={styles.firstDeck}>
-                {firstDeck.map((rapper, index) =>
+            <div className={`${styles.firstDeck} ${clickBlocker}`}>
+                {firstDeck.map((rapper, index) => (
                     <Card 
                         key={index}
                         rapper={rapper} 
                         cardVsCardCheck={cardVsCardCheck}
+                        setBlocked={setBlocked}
                     />
-                )}
+                ))}
             </div>
             <div className={styles.secondDeck}>
-                {secondDeck.map((rapper, index) =>
+                {secondDeck.map((rapper, index) => (
                     <Card
                         key={index}
                         rapper={rapper}
                         cardVsCardCheck={cardVsCardCheck}
                         hideDeck={hideDeck}
-                        setHideDeck={setHideDeck}
                     />
-                )}
+                ))}
             </div>
             <ResultPanel determinedResult={determinedResult} />
         </div>

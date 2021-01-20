@@ -13,6 +13,7 @@
         width: 77%;
         display: flex;
         justify-content: space-between;
+        user-select: none;
         
         h2 {
             height: 60px;
@@ -36,9 +37,14 @@
 
     .firstDeck {
         padding-left: 15%;
+
+        &.blockPlayer {
+            pointer-events: none;
+        }
     }
 
     .secondDeck {
         padding-right: 15%;
+        pointer-events: none;
     }
 }

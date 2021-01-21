@@ -10,14 +10,19 @@ const App = () => {
     const [firstDeck, setFirstDeck] = useState([]);
     const [secondDeck, setSecondDeck] = useState([]);
     const [gameBegin, setGameBegin] = useState(false);
+    const [gameWinner, setGameWinner] = useState('');
 
     const getRappers = () => {
-        firestore.collection("rappers").get().then((response) => {
-            const rappers = response.docs.map(d => d.data());  
-            setRappers(rappers);    
-        }).catch((err) => console.error(err));
+        firestore
+            .collection("rappers")
+            .get()
+            .then((response) => {
+                const rappers = response.docs.map((d) => d.data());  
+                setRappers(rappers);    
+            })
+            .catch((err) => console.error(err));
     };
-    useEffect(getRappers,[]);
+    useEffect(getRappers, []);
 
     const handleRandomise = (array) => {    
         let l = array.length, temp, i;  
@@ -39,26 +44,44 @@ const App = () => {
         setGameBegin(true);
     };
 
-    const startGame = () => {
+    const runGame = () => {
         if (gameBegin === true) {
-            return (
-                <>
+            if (gameWinner === 'computer') {
+                return (
+                    <Title headerOne={'YOU LOST...'} btnContent={'Try Again'} setDecks={setDecks} />
+                );
+            } else if (gameWinner === 'player') {
+                return (
+                    <Title headerOne={'YOU WON!'} btnContent={'Play Again'} setDecks={setDecks} />
+                );
+            } else {
+                return (
                     <Decks firstDeck={firstDeck} secondDeck={secondDeck} setFirstDeck={setFirstDeck} setSecondDeck={setSecondDeck} />
-                </>
-            );
+                );
+            };
         } else {
             return (
                 <>
-                    <Title />
-                    <button className={styles.playBtn} onClick={() => setDecks()}>Play</button>
+                    <Title headerOne={'RAP'} headerTwo={'TRUMPS'} btnContent={'Play'} setDecks={setDecks} />
                 </>
             );
         };
     };
 
+    const endCheck = () => {
+        if (firstDeck.length <= 0 && secondDeck.length >= 1) {
+            setGameWinner('computer');
+        } else if (secondDeck.length <= 0 && firstDeck.length >= 1) {
+            setGameWinner('player');
+        } else {
+            setGameWinner('');
+        };
+    };
+    useEffect(endCheck,[firstDeck]);
+
     return (
         <div className={styles.app}>
-            {startGame()}
+            {runGame()}
         </div>
     );
 };

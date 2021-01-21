@@ -72,22 +72,12 @@ const Decks = (props) => {
             </div>
             <div className={`${styles.firstDeck} ${clickBlocker}`}>
                 {firstDeck.map((rapper, index) => (
-                    <Card 
-                        key={index}
-                        rapper={rapper} 
-                        cardVsCardCheck={cardVsCardCheck}
-                        setBlocked={setBlocked}
-                    />
+                    <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} setBlocked={setBlocked} />
                 ))}
             </div>
             <div className={styles.secondDeck}>
                 {secondDeck.map((rapper, index) => (
-                    <Card
-                        key={index}
-                        rapper={rapper}
-                        cardVsCardCheck={cardVsCardCheck}
-                        hideDeck={hideDeck}
-                    />
+                    <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} hideDeck={hideDeck} />
                 ))}
             </div>
             <ResultPanel determinedResult={determinedResult} />

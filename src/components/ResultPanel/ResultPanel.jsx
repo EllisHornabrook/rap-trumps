@@ -26,11 +26,7 @@ const ResultPanel = (props) => {
         };
     };
 
-    return (
-        <>
-            {checkResult()}
-        </>
-    );
+    return checkResult();
 };
 
 export default ResultPanel;

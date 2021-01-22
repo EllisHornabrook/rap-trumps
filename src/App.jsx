@@ -48,21 +48,39 @@ const App = () => {
         if (gameBegin === true) {
             if (gameWinner === 'computer') {
                 return (
-                    <Title headerOne={'YOU LOST...'} btnContent={'Try Again'} setDecks={setDecks} />
+                    <Title
+                        headerOne={'YOU LOST...'}
+                        btnContent={'Try Again'}
+                        setDecks={setDecks}
+                    />
                 );
             } else if (gameWinner === 'player') {
                 return (
-                    <Title headerOne={'YOU WON!'} btnContent={'Play Again'} setDecks={setDecks} />
+                    <Title
+                        headerOne={'YOU WON!'}
+                        btnContent={'Play Again'}
+                        setDecks={setDecks}
+                    />
                 );
             } else {
                 return (
-                    <Decks firstDeck={firstDeck} secondDeck={secondDeck} setFirstDeck={setFirstDeck} setSecondDeck={setSecondDeck} />
+                    <Decks
+                        firstDeck={firstDeck}
+                        secondDeck={secondDeck}
+                        setFirstDeck={setFirstDeck}
+                        setSecondDeck={setSecondDeck}
+                    />
                 );
             };
         } else {
             return (
                 <>
-                    <Title headerOne={'RAP'} headerTwo={'TRUMPS'} btnContent={'Play'} setDecks={setDecks} />
+                    <Title
+                        headerOne={'RAP'}
+                        headerTwo={'TRUMPS'}
+                        btnContent={'Play'}
+                        setDecks={setDecks}
+                    />
                 </>
             );
         };

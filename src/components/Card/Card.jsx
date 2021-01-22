@@ -7,7 +7,7 @@ const Card = (props) => {
     const { rapper, cardVsCardCheck, hideDeck, setBlocked } = props;
     const flipStyles = hideDeck ? styles.flipCard : "";
     
-    const runBlocker = () => {
+    const handleBlocker = () => {
         setBlocked(true);
         setTimeout(() => {
             setBlocked(false);
@@ -17,10 +17,14 @@ const Card = (props) => {
     return (
         <div className={`${styles.card} ${flipStyles}`}>
             <div className={styles.front}>
-                <CardFront rapper={rapper} cardVsCardCheck={cardVsCardCheck} runBlocker={runBlocker} />
+                <CardFront
+                    rapper={rapper}
+                    cardVsCardCheck={cardVsCardCheck}
+                    handleBlocker={handleBlocker}
+                />
             </div>
             <div className={styles.back}>
-                <CardBack rapper={rapper} cardVsCardCheck={cardVsCardCheck} />
+                <CardBack />
             </div>
         </div>
     );

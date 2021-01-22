@@ -58,7 +58,7 @@ const Decks = (props) => {
             setDeterminedResult("");
         }, 3000);
         setTimeout(() => {
-            moveCards(moveOne, moveTwo, moveThree, moveFour)
+            moveCards(moveOne, moveTwo, moveThree, moveFour);
             setFirstDeck([...firstDeck]);
             setSecondDeck([...secondDeck]);
         }, 3100);
@@ -72,12 +72,22 @@ const Decks = (props) => {
             </div>
             <div className={`${styles.firstDeck} ${clickBlocker}`}>
                 {firstDeck.map((rapper, index) => (
-                    <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} setBlocked={setBlocked} />
+                    <Card
+                        key={index}
+                        rapper={rapper}
+                        cardVsCardCheck={cardVsCardCheck}
+                        setBlocked={setBlocked}
+                    />
                 ))}
             </div>
             <div className={styles.secondDeck}>
                 {secondDeck.map((rapper, index) => (
-                    <Card key={index} rapper={rapper} cardVsCardCheck={cardVsCardCheck} hideDeck={hideDeck} />
+                    <Card
+                        key={index}
+                        rapper={rapper}
+                        cardVsCardCheck={cardVsCardCheck}
+                        hideDeck={hideDeck}
+                    />
                 ))}
             </div>
             <ResultPanel determinedResult={determinedResult} />

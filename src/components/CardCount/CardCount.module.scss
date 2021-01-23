@@ -1,0 +1,22 @@
+.cardCount {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 77%;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    
+    h2 {
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        margin-top: 15px;
+        border: 5px solid black;
+        border-radius: 50%;
+        font-size: 35px;
+        background-color: yellow;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Card from "../../components/Card/Card";
+import Card from "../../containers/Card";
 import styles from "./Decks.module.scss";
 import CardCount from "../../components/CardCount";
 import ResultPanel from "../../components/ResultPanel";

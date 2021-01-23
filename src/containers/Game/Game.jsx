@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styles from "./RunGame.module.scss";
-import Title from "./components/Title";
-import Decks from "./containers/Decks";
+import React, { useState, useEffect } from "react";
+import styles from "./Game.module.scss";
+import Title from "../../components/Title";
+import Decks from "../Decks";
 
 const Game = (props) => {
     const { rappers, getRappers, handleRandomise } = props;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Card from "../Card/Card";
+import Card from "../../components/Card/Card";
 import styles from "./Decks.module.scss";
-import ResultPanel from "../ResultPanel";
+import CardCount from "../../components/CardCount";
+import ResultPanel from "../../components/ResultPanel";
 
 const Decks = (props) => {
     const { firstDeck, setFirstDeck, secondDeck, setSecondDeck } = props;
@@ -66,10 +67,7 @@ const Decks = (props) => {
 
     return (
         <div className={styles.decks}>
-            <div className={styles.cardCount}>
-                <h2>{firstDeck.length}</h2>
-                <h2>{secondDeck.length}</h2>
-            </div>
+            <CardCount firstDeck={firstDeck} secondDeck={secondDeck} />
             <div className={`${styles.firstDeck} ${clickBlocker}`}>
                 {firstDeck.map((rapper, index) => (
                     <Card

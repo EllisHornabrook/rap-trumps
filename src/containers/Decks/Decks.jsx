@@ -3,13 +3,15 @@ import Card from "../../containers/Card";
 import styles from "./Decks.module.scss";
 import CardCount from "../../components/CardCount";
 import ResultPanel from "../../components/ResultPanel";
+import OpponentTurn from "../../components/OpponentTurn";
 
 const Decks = (props) => {
     const { firstDeck, setFirstDeck, secondDeck, setSecondDeck } = props;
     const [determinedResult, setDeterminedResult] = useState("");
     const [hideDeck, setHideDeck] = useState(true);
     const [blocked, setBlocked] = useState(false);
-    const clickBlocker = blocked ? styles.blockPlayer : "";
+    const [playerTurn, setPlayerTurn] = useState(true);
+    const clickBlocker = blocked || playerTurn === false ? styles.blockPlayer : "";
 
     const refactorCards = (cardValue) => {
         if (typeof cardValue === "string") {
@@ -30,20 +32,35 @@ const Decks = (props) => {
     const cardVsCardCheck = (option) => {
         const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
         const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
+        const opponentOption = OpponentTurn();
 
         if (firstCardValue > secondCardValue) {
+            setPlayerTurn(true);
             changeCards(secondDeck, firstDeck, firstDeck, firstDeck);
             setDeterminedResult("Player");
             setHideDeck(false);
         } else if (secondCardValue > firstCardValue) {
+            setPlayerTurn(false);
             changeCards(firstDeck, secondDeck, secondDeck, secondDeck);
             setDeterminedResult("Computer");
             setHideDeck(false);
+            if (firstDeck.length >= 1 && secondDeck.length >= 1) {
+                handleOpponent(opponentOption);
+            };
         } else {
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
             setHideDeck(false);
+            if (playerTurn === false && firstDeck.length >= 1 && secondDeck.length >= 1) {
+                handleOpponent(opponentOption);
+            };
         };
+    };
+
+    const handleOpponent = (opponentOption) => {
+        setTimeout(() => {
+            cardVsCardCheck(opponentOption);
+        }, 7000);
     };
 
     const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {

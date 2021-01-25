@@ -45,9 +45,6 @@ const Decks = (props) => {
             setDeterminedResult("Computer");
             setHideDeck(false);
             handleOpponent(opponentOption);
-            console.log('Loss');
-            console.log('first', firstDeck.length);
-            console.log('second', secondDeck.length);
         } else {
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
@@ -81,8 +78,12 @@ const Decks = (props) => {
         }, 3000);
         setTimeout(() => {
             moveCards(moveOne, moveTwo, moveThree, moveFour);
-            setFirstDeck([...firstDeck]);
-            setSecondDeck([...secondDeck]);
+            if (firstDeck.length >= 1) {
+                setFirstDeck([...firstDeck]);
+            };
+            if (secondDeck.length >= 1) {
+                setSecondDeck([...secondDeck]);
+            };
         }, 3100);
     };
 

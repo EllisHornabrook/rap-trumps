@@ -9,9 +9,9 @@ const ResultPanel = (props) => {
                     <h2>YOU WIN</h2>
                 </div>
             );
-        } else if (props.determinedResult === "Computer") {
+        } else if (props.determinedResult === "Opponent") {
             return (
-                <div className={styles.computer}>
+                <div className={styles.opponent}>
                     <h2>YOU LOSE</h2>
                 </div>
             );

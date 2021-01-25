@@ -1,4 +1,4 @@
-.player, .computer, .draw {
+.player, .opponent, .draw {
     position: absolute;
     height: 100vh;
     display: flex;
@@ -20,7 +20,7 @@
     border-right: 3px solid black;
 }
 
-.computer {
+.opponent {
     right: 0;
     background-color: #E60000;
     border-left: 3px solid black;

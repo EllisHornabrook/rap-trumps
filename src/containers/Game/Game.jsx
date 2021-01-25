@@ -17,7 +17,7 @@ const Game = (props) => {
    
     const runGame = () => {
         if (gameBegin === true) {
-            if (gameWinner === 'computer') {
+            if (gameWinner === 'opponent') {
                 return (
                     <Title
                         headerOne={'YOU LOST...'}
@@ -64,7 +64,7 @@ const Game = (props) => {
     
     const endGame = () => {
         if (firstDeck.length <= 0 && secondDeck.length >= 1) {
-            setGameWinner('computer');
+            setGameWinner('opponent');
         } else if (secondDeck.length <= 0 && firstDeck.length >= 1) {
             setGameWinner('player');
         } else {

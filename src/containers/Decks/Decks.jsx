@@ -44,14 +44,15 @@ const Decks = (props) => {
             changeCards(firstDeck, secondDeck, secondDeck, secondDeck);
             setDeterminedResult("Computer");
             setHideDeck(false);
-            if (firstDeck.length >= 1 && secondDeck.length >= 1) {
-                handleOpponent(opponentOption);
-            };
+            handleOpponent(opponentOption);
+            console.log('Loss');
+            console.log('first', firstDeck.length);
+            console.log('second', secondDeck.length);
         } else {
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
             setHideDeck(false);
-            if (playerTurn === false && firstDeck.length >= 1 && secondDeck.length >= 1) {
+            if (playerTurn === false) {
                 handleOpponent(opponentOption);
             };
         };
@@ -59,7 +60,10 @@ const Decks = (props) => {
 
     const handleOpponent = (opponentOption) => {
         setTimeout(() => {
+            if (firstDeck.length >= 1 && secondDeck.length >= 1) {
             cardVsCardCheck(opponentOption);
+            console.log('Opponent taken turn');
+            };
         }, 7000);
     };
 

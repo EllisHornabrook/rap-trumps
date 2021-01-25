@@ -3,30 +3,23 @@ import Card from "../../containers/Card";
 import styles from "./Decks.module.scss";
 import CardCount from "../../components/CardCount";
 import ResultPanel from "../../components/ResultPanel";
-import OpponentTurn from "../../components/OpponentTurn";
+import OpponentOption from "../../utils/opponentOption";
+import refactorCards from "../../utils/refactorCards";
+import moveCards from "../../utils/moveCards";
 
 const Decks = (props) => {
-    const { firstDeck, setFirstDeck, secondDeck, setSecondDeck, blocked, setBlocked } = props;
+    const { 
+        firstDeck,
+        setFirstDeck,
+        secondDeck,
+        setSecondDeck,
+        blocked,
+        setBlocked
+    } = props;
     const [determinedResult, setDeterminedResult] = useState("");
     const [hideDeck, setHideDeck] = useState(true);
     const [playerTurn, setPlayerTurn] = useState(true);
     const clickBlocker = blocked || playerTurn === false ? styles.blockPlayer : "";
-
-    const refactorCards = (cardValue) => {
-        if (typeof cardValue === "string") {
-            return parseFloat(
-                cardValue
-                    .replace(`.`, `1`)
-                    .replace(`10"`, `9.1`)
-                    .replace(`11"`, `9.2`)
-                    .replace(` Million`, ``)
-                    .replace(` Billion`, `1`)
-                    .replace(/[,"']/gm, ``)
-            );
-        } else {
-            return cardValue;
-        };
-    };
 
     const cardVsCardCheck = (option) => {
         const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
@@ -40,32 +33,22 @@ const Decks = (props) => {
         } else if (secondCardValue > firstCardValue) {
             setPlayerTurn(false);
             changeCards(firstDeck, secondDeck, secondDeck, secondDeck);
-            setDeterminedResult("Computer");
+            setDeterminedResult("Opponent");
             setHideDeck(false);
             handleOpponent();
         } else {
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
             setHideDeck(false);
-            if (playerTurn === false) {
-                handleOpponent();
-            };
         };
     };
 
     const handleOpponent = () => {
         setTimeout(() => {
             if (firstDeck.length >= 1 && secondDeck.length >= 1) {
-            cardVsCardCheck(OpponentTurn());
+                cardVsCardCheck(OpponentOption());
             };
         }, 7000);
-    };
-
-    const moveCards = (moveOne, moveTwo, moveThree, moveFour) => {
-        const firstCardUpdate = moveOne.pop();
-        moveTwo.unshift(firstCardUpdate);
-        const secondCardUpdate = moveThree.pop();
-        moveFour.unshift(secondCardUpdate);
     };
 
     const changeCards = (moveOne, moveTwo, moveThree, moveFour) => {
@@ -84,7 +67,7 @@ const Decks = (props) => {
 
     return (
         <div className={styles.decks}>
-            <CardCount firstDeck={firstDeck} secondDeck={secondDeck} />
+            <CardCount firstDeck={firstDeck} secondDeck={secondDeck} playerTurn={playerTurn} />
             <div className={`${styles.firstDeck} ${clickBlocker}`}>
                 {firstDeck.map((rapper, index) => (
                     <Card

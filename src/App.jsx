@@ -3,6 +3,7 @@ import styles from "./App.module.scss";
 import { firestore } from './firebase';
 import "./data/fa-library";
 import Game from "./containers/Game";
+import randomiseArray from "./utils/randomiseArray";
 
 const App = () => {
     const [rappers, setRappers] = useState([]);
@@ -22,21 +23,9 @@ const App = () => {
     };
     useEffect(getRappers, []);
 
-    const handleRandomise = (array) => {    
-        let l = array.length, temp, i;  
-        while (l > 0) {  
-            i = Math.floor(Math.random() * l);
-            l--;  
-            temp = array[l];          
-            array[l] = array[i];
-            array[i] = temp;      
-        };
-        return array;
-    };
-
     const setDecks = () => {
         getRappers();
-        const randomisedDecks = handleRandomise(rappers);
+        const randomisedDecks = randomiseArray(rappers);
         setFirstDeck(randomisedDecks.splice(0, Math.floor(randomisedDecks.length / 2)));
         setSecondDeck(randomisedDecks);
         setGameBegin(true);

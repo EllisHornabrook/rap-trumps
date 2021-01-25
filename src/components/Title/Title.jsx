@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Title.module.scss";
 
 const Title = (props) => {
-    const { headerOne, headerTwo, btnContent, setDecks } = props;
+    const { headerOne, headerTwo, btnContent, setDecks, setGameWinner } = props;
 
     return (
         <div className={styles.titleBackground}>
@@ -10,7 +10,7 @@ const Title = (props) => {
                 <div className={styles.titleEffect}>
                     <h1>{headerOne}</h1>
                     <h1>{headerTwo}</h1>
-                    <button className={styles.playBtn} onClick={() => setDecks()}>{btnContent}</button>
+                    <button className={styles.playBtn} onClick={() => {setDecks(); setGameWinner('');}}>{btnContent}</button>
                 </div>
             </div>
         </div>

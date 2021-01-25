@@ -6,10 +6,9 @@ import ResultPanel from "../../components/ResultPanel";
 import OpponentTurn from "../../components/OpponentTurn";
 
 const Decks = (props) => {
-    const { firstDeck, setFirstDeck, secondDeck, setSecondDeck } = props;
+    const { firstDeck, setFirstDeck, secondDeck, setSecondDeck, blocked, setBlocked } = props;
     const [determinedResult, setDeterminedResult] = useState("");
     const [hideDeck, setHideDeck] = useState(true);
-    const [blocked, setBlocked] = useState(false);
     const [playerTurn, setPlayerTurn] = useState(true);
     const clickBlocker = blocked || playerTurn === false ? styles.blockPlayer : "";
 
@@ -32,7 +31,6 @@ const Decks = (props) => {
     const cardVsCardCheck = (option) => {
         const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
         const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
-        const opponentOption = OpponentTurn();
 
         if (firstCardValue > secondCardValue) {
             setPlayerTurn(true);
@@ -44,22 +42,21 @@ const Decks = (props) => {
             changeCards(firstDeck, secondDeck, secondDeck, secondDeck);
             setDeterminedResult("Computer");
             setHideDeck(false);
-            handleOpponent(opponentOption);
+            handleOpponent();
         } else {
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
             setHideDeck(false);
             if (playerTurn === false) {
-                handleOpponent(opponentOption);
+                handleOpponent();
             };
         };
     };
 
-    const handleOpponent = (opponentOption) => {
+    const handleOpponent = () => {
         setTimeout(() => {
             if (firstDeck.length >= 1 && secondDeck.length >= 1) {
-            cardVsCardCheck(opponentOption);
-            console.log('Opponent taken turn');
+            cardVsCardCheck(OpponentTurn());
             };
         }, 7000);
     };
@@ -72,18 +69,16 @@ const Decks = (props) => {
     };
 
     const changeCards = (moveOne, moveTwo, moveThree, moveFour) => {
+        setBlocked(true);
         setTimeout(() => {
             setHideDeck(true);
             setDeterminedResult("");
+            moveCards(moveOne, moveTwo, moveThree, moveFour);
         }, 3000);
         setTimeout(() => {
-            moveCards(moveOne, moveTwo, moveThree, moveFour);
-            if (firstDeck.length >= 1) {
-                setFirstDeck([...firstDeck]);
-            };
-            if (secondDeck.length >= 1) {
-                setSecondDeck([...secondDeck]);
-            };
+            setFirstDeck([...firstDeck]);
+            setSecondDeck([...secondDeck]);
+            setBlocked(false);
         }, 3100);
     };
 

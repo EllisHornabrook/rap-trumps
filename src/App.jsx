@@ -6,6 +6,9 @@ import Game from "./containers/Game";
 
 const App = () => {
     const [rappers, setRappers] = useState([]);
+    const [gameBegin, setGameBegin] = useState(false);
+    const [firstDeck, setFirstDeck] = useState([]);
+    const [secondDeck, setSecondDeck] = useState([]);
 
     const getRappers = () => {
         firestore
@@ -31,12 +34,23 @@ const App = () => {
         return array;
     };
 
+    const setDecks = () => {
+        getRappers();
+        const randomisedDecks = handleRandomise(rappers);
+        setFirstDeck(randomisedDecks.splice(0, Math.floor(randomisedDecks.length / 2)));
+        setSecondDeck(randomisedDecks);
+        setGameBegin(true);
+    };
+
     return (
         <div className={styles.app}>
             <Game
-                rappers={rappers}
-                getRappers={getRappers}
-                handleRandomise={handleRandomise}
+                setDecks={setDecks}
+                gameBegin={gameBegin}
+                firstDeck={firstDeck}
+                setFirstDeck={setFirstDeck}
+                secondDeck={secondDeck}
+                setSecondDeck={setSecondDeck}
             />
         </div>
     );

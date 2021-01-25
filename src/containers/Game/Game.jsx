@@ -4,20 +4,17 @@ import Title from "../../components/Title";
 import Decks from "../Decks";
 
 const Game = (props) => {
-    const { rappers, getRappers, handleRandomise } = props;
-    const [firstDeck, setFirstDeck] = useState([]);
-    const [secondDeck, setSecondDeck] = useState([]);
-    const [gameBegin, setGameBegin] = useState(false);
+    const {
+        setDecks,
+        gameBegin,
+        firstDeck,
+        setFirstDeck,
+        secondDeck,
+        setSecondDeck 
+    } = props;
     const [gameWinner, setGameWinner] = useState('');
-
-    const setDecks = () => {
-        getRappers();
-        const randomisedDecks = handleRandomise(rappers);
-        setFirstDeck(randomisedDecks.splice(0, Math.floor(randomisedDecks.length / 2)));
-        setSecondDeck(randomisedDecks);
-        setGameBegin(true);
-    };
-
+    const [blocked, setBlocked] = useState(false);
+   
     const runGame = () => {
         if (gameBegin === true) {
             if (gameWinner === 'computer') {
@@ -26,6 +23,7 @@ const Game = (props) => {
                         headerOne={'YOU LOST...'}
                         btnContent={'Try Again'}
                         setDecks={setDecks}
+                        setGameWinner={setGameWinner}
                     />
                 );
             } else if (gameWinner === 'player') {
@@ -34,6 +32,7 @@ const Game = (props) => {
                         headerOne={'YOU WON!'}
                         btnContent={'Play Again'}
                         setDecks={setDecks}
+                        setGameWinner={setGameWinner}
                     />
                 );
             } else {
@@ -43,6 +42,8 @@ const Game = (props) => {
                         secondDeck={secondDeck}
                         setFirstDeck={setFirstDeck}
                         setSecondDeck={setSecondDeck}
+                        blocked={blocked}
+                        setBlocked={setBlocked}
                     />
                 );
             };
@@ -54,6 +55,7 @@ const Game = (props) => {
                         headerTwo={'TRUMPS'}
                         btnContent={'Play'}
                         setDecks={setDecks}
+                        setGameWinner={setGameWinner}
                     />
                 </>
             );
@@ -69,7 +71,8 @@ const Game = (props) => {
             setGameWinner('');
         };
     };
-    useEffect(endGame,[firstDeck]);
+
+    useEffect(endGame, [blocked]);
     
     return (
         <div className={styles.app}>

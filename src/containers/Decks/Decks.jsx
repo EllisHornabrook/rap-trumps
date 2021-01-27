@@ -37,6 +37,7 @@ const Decks = (props) => {
             setHideDeck(false);
             handleOpponent();
         } else {
+            setPlayerTurn(true);
             changeCards(firstDeck, firstDeck, secondDeck, secondDeck);
             setDeterminedResult("Draw");
             setHideDeck(false);
@@ -47,6 +48,8 @@ const Decks = (props) => {
         setTimeout(() => {
             if (firstDeck.length >= 1 && secondDeck.length >= 1) {
                 cardVsCardCheck(OpponentOption());
+            } else {
+                return null;
             };
         }, 7000);
     };
@@ -62,6 +65,7 @@ const Decks = (props) => {
             setFirstDeck([...firstDeck]);
             setSecondDeck([...secondDeck]);
             setBlocked(false);
+            clearTimeout();
         }, 3100);
     };
 

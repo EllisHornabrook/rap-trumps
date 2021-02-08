@@ -3,6 +3,7 @@ import Card from "../../containers/Card";
 import styles from "./Decks.module.scss";
 import CardCount from "../../components/CardCount";
 import ResultPanel from "../../components/ResultPanel";
+import OptionDisplay from "../../components/OptionDisplay";
 import OpponentOption from "../../utils/opponentOption";
 import refactorCards from "../../utils/refactorCards";
 import moveCards from "../../utils/moveCards";
@@ -17,13 +18,15 @@ const Decks = (props) => {
         setBlocked
     } = props;
     const [determinedResult, setDeterminedResult] = useState("");
+    const [selectedOption, setSelectedOption] = useState({value: "", turn: ""});
     const [hideDeck, setHideDeck] = useState(true);
     const [playerTurn, setPlayerTurn] = useState(true);
     const clickBlocker = blocked || playerTurn === false ? styles.blockPlayer : "";
 
-    const cardVsCardCheck = (option) => {
+    const cardVsCardCheck = (option, player) => {
         const firstCardValue = refactorCards(firstDeck[firstDeck.length-1][`${option}`]);
         const secondCardValue = refactorCards(secondDeck[secondDeck.length-1][`${option}`]);
+        setSelectedOption({value: option, turn: player});
 
         if (firstCardValue > secondCardValue) {
             setPlayerTurn(true);
@@ -47,7 +50,7 @@ const Decks = (props) => {
     const handleOpponent = () => {
         setTimeout(() => {
             if (firstDeck.length >= 1 && secondDeck.length >= 1) {
-                cardVsCardCheck(OpponentOption());
+                cardVsCardCheck(OpponentOption(), "opponent");
             } else {
                 return null;
             };
@@ -65,6 +68,7 @@ const Decks = (props) => {
             setFirstDeck([...firstDeck]);
             setSecondDeck([...secondDeck]);
             setBlocked(false);
+            setSelectedOption({value: "", turn: ""});
             clearTimeout();
         }, 3100);
     };
@@ -72,6 +76,7 @@ const Decks = (props) => {
     return (
         <div className={styles.decks}>
             <CardCount firstDeck={firstDeck} secondDeck={secondDeck} playerTurn={playerTurn} />
+            <OptionDisplay selectedOption={selectedOption} />
             <div className={`${styles.firstDeck} ${clickBlocker}`}>
                 {firstDeck.map((rapper, index) => (
                     <Card
